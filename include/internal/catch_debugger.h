@@ -11,6 +11,7 @@
 
 #include "catch_platform.h"
 
+#include <csignal>
 #include <string>
 
 namespace Catch{
@@ -40,6 +41,8 @@ namespace Catch{
 #elif defined(__MINGW32__)
     extern "C" __declspec(dllimport) void __stdcall DebugBreak();
     #define CATCH_BREAK_INTO_DEBUGGER() if( Catch::isDebuggerActive() ) { DebugBreak(); }
+#else
+    #define CATCH_BREAK_INTO_DEBUGGER() raise(SIGTRAP);
 #endif
 
 #ifndef CATCH_BREAK_INTO_DEBUGGER
