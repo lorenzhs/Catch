@@ -1,6 +1,6 @@
 /*
- *  CATCH v1.1 build 2 (master branch)
- *  Generated: 2015-05-19 22:36:34.575371
+ *  CATCH v1.1 build 3 (master branch)
+ *  Generated: 2015-05-20 13:23:44.423074
  *  ----------------------------------------------------------
  *  This file has been merged from multiple headers. Please don't edit it directly
  *  Copyright (c) 2012 Two Blue Cubes Ltd. All rights reserved.
@@ -1569,6 +1569,7 @@ namespace Catch {
 #define CATCH_PLATFORM_WINDOWS
 #endif
 
+#include <csignal>
 #include <string>
 
 namespace Catch{
@@ -1598,6 +1599,8 @@ namespace Catch{
 #elif defined(__MINGW32__)
     extern "C" __declspec(dllimport) void __stdcall DebugBreak();
     #define CATCH_BREAK_INTO_DEBUGGER() if( Catch::isDebuggerActive() ) { DebugBreak(); }
+#else
+    #define CATCH_BREAK_INTO_DEBUGGER() raise(SIGTRAP);
 #endif
 
 #ifndef CATCH_BREAK_INTO_DEBUGGER
@@ -6800,7 +6803,7 @@ namespace Catch {
 namespace Catch {
 
     // These numbers are maintained by a script
-    Version libraryVersion( 1, 1, 2, "master" );
+    Version libraryVersion( 1, 1, 3, "master" );
 }
 
 // #included from: catch_message.hpp
